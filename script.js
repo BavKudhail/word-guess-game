@@ -2,8 +2,11 @@
 
 var words = ["italy", "france", "germany", "spain", "india", "pakistan", "dubai"];
 
+var characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
 var maxGuesses = 10;
-var guessedLetters = [ ];
+
+
 var wordArray = [ ];
 var guessesRemaining = 0;
 var winCount = 0;
@@ -12,15 +15,23 @@ var isFinished = false;
 var randomWord = document.getElementById("random-word");
 var startGame = document.getElementById("start-btn");
 
+var guessedLetters = [ ];
+var guessedLettersElement = document.getElementById("letters-guessed")
+guessedLettersElement.textContent = guessedLetters;
+
+
 startGame.addEventListener("click", playGame)
 
+var chosenWord = [ ];
+
+var secondsLeft
 
 
 function playGame() {
 
     // pick a random word from an array
 
-    var chosenWord = words[Math.floor(Math.random() * words.length)];
+    chosenWord = words[Math.floor(Math.random() * words.length)];
         console.log(chosenWord);
 
     // store word as "_" replacing amount of letters within word
@@ -58,9 +69,19 @@ function setCountdown(){
 }
 
 
+// event listner to check for key press event
 
 
+document.addEventListener('keyup', function(event){
 
+    var key = event.key.toLowerCase()
+    
+
+    if (characters.includes(key)) {
+        checkKey(key)
+    }
+    
+})
 
 
 
@@ -68,42 +89,27 @@ function setCountdown(){
 // Checks whether key pressed responds to letter within word
 function checkKey(letter) {
 
-    // if letter is not in guessedLetters array, push the item to the array
     if (guessedLetters.indexOf(letter) === -1) {
         guessedLetters.push(letter);
+        guessedLettersElement.textContent = guessedLetters;
     }
-    // if letter is in the chosen word then replace corresponding "_" with the guessed letter
+    if (chosenWord.indexOf(letter) === -1) {
+        console.log("letter not in word")
+    }
     else {
-        for (var i = 0; i < chosenWord.length; i++){
+        console.log("letter is in word")
+        for (var i = 0; i < chosenWord.length; i++) {
             if (letter === chosenWord[i]) {
-                chosenWord[i] = letter;
+                wordArray[i] = letter;
+                randomWord.textContent = wordArray;
             }
+
         }
     }
-
-};
-
-
-
-// Check winner 
-function youWin() {
-    // if there are no more "_" in the answer array than the player wins
-    if (wordArray.indexOf("_") === -1) {
-        winCount = winCount + 1;
-        isFinished = true;
-    }
 }
 
 
 
-function youLose() {
-    // If there is no more time remaining the player loses
-    if (secondsLeft === 0) {
-        lossCount++;
-        isFinished = true;
-        console.log("you lose")
-        console.log(lossCount)
-    }
-}
+
 
 
