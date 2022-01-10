@@ -2,17 +2,14 @@
 
 var words = ["italy", "france", "germany", "spain", "india", "pakistan", "dubai"];
 
-
-
 var maxGuesses = 10;
 var guessedLetters = [ ];
 var wordArray = [ ];
 var guessesRemaining = 0;
-var timeCount = 0;
 var winCount = 0;
 var lossCount = 0;
 var isFinished = false;
-var chosenWord;
+var randomWord = document.getElementById("random-word");
 var startGame = document.getElementById("start-btn");
 
 startGame.addEventListener("click", playGame)
@@ -32,24 +29,41 @@ function playGame() {
 
     for(var i = 0; i < chosenWord.length; i++) {
         wordArray[i] = "_";
-        console.log(wordArray);
-        
+        randomWord.textContent = wordArray;
     }
 
-    updateScreen();
+    // execute countdown function
+    setCountdown();
 }
 
 
-// Updates HTML elements using javascript
-function updateScreen() {
 
-    document.getElementById("win-count").innerText = winCount;
-    document.getElementById("loss-count").innerText = lossCount;
-    document.getElementById("time-count").innerText = timeCount;
-    document.getElementById("random-word").innerText = wordArray.join(" ");
-    document.getElementById("letters-guessed").innerText = guessedLetters;
+// function begins countdown timer from 60 
+function setCountdown(){
+    var secondsLeft = 60;
+    var timeCount = document.getElementById("time-count")
 
+    var timeInterval = setInterval(() => {
+        
+
+        if (secondsLeft > 0){
+            secondsLeft --;
+            timeCount.textContent = secondsLeft;
+        }
+        if (secondsLeft === 0){
+            timeCount.style.color = "red";
+        }
+
+    }, 1000);
 }
+
+
+
+
+
+
+
+
 
 // Checks whether key pressed responds to letter within word
 function checkKey(letter) {
@@ -68,4 +82,28 @@ function checkKey(letter) {
     }
 
 };
+
+
+
+// Check winner 
+function youWin() {
+    // if there are no more "_" in the answer array than the player wins
+    if (wordArray.indexOf("_") === -1) {
+        winCount = winCount + 1;
+        isFinished = true;
+    }
+}
+
+
+
+function youLose() {
+    // If there is no more time remaining the player loses
+    if (secondsLeft === 0) {
+        lossCount++;
+        isFinished = true;
+        console.log("you lose")
+        console.log(lossCount)
+    }
+}
+
 
