@@ -1,5 +1,5 @@
 // words
-var words = ["italy", "france", "germany", "spain", "india", "pakistan", "dubai"];
+var words = ["italy", "france", "germany", "spain", "india", "pakistan", "dubai", "belarus", "belgium", "brazil", "cambodia", "cuba", "costa rica", "korea"];
 
 var characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
