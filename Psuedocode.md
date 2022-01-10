@@ -1,5 +1,6 @@
 Pseudo-Code
 
+```
 
 When (user clicks start game) {
 
@@ -36,6 +37,6 @@ if ( time count = 0 ) {
 
 
 
-
+```
 
 
